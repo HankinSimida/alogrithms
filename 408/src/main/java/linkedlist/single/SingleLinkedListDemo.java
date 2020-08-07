@@ -24,15 +24,21 @@ public class SingleLinkedListDemo {
         singleLinkedList.showLinkedList();*/
 
         singleLinkedList.addNodeByOrder(hero2);
+        singleLinkedList.addNodeByOrder(hero1);
         singleLinkedList.addNodeByOrder(hero5);
 //        singleLinkedList.addNodeByOrder(hero1);
         singleLinkedList.addNodeByOrder(hero4);
         singleLinkedList.addNodeByOrder(hero3);
         singleLinkedList.addNodeByOrder(hero7);
 
-        singleLinkedList.modifyByNo(hero1);
-        singleLinkedList.deleteNode(hero1);
-        singleLinkedList.showLinkedList();
+//        singleLinkedList.modifyByNo(hero1);
+//        singleLinkedList.deleteNode(hero1);
+//        singleLinkedList.showLinkedList(hero1);
+        System.out.println(singleLinkedList.getNumberOfNode());
+//        System.out.println(singleLinkedList.getLastKNode(0));
+        HeroNode heroNode = singleLinkedList.reverseLinkedList(hero1);
+        singleLinkedList.showLinkedList(heroNode);
+
 
     }
 }
@@ -59,14 +65,19 @@ class SingleLinkedList {
         temp.next = node;
     }
 
-    public void deleteNode(HeroNode node){
+    /**
+     * 删除节点根据node的no来删除
+     *
+     * @param node
+     */
+    public void deleteNode(HeroNode node) {
         HeroNode temp = head;
-        while (temp.next != null&&temp.next.no!=node.no) {
+        while (temp.next != null && temp.next.no != node.no) {
             temp = temp.next;
         }
-        if (temp.next != null){
-            temp.next= temp.next.next;
-        }else {
+        if (temp.next != null) {
+            temp.next = temp.next.next;
+        } else {
             System.out.println("No this node");
         }
     }
@@ -91,27 +102,26 @@ class SingleLinkedList {
 
     /**
      * 根据no 修改节点内容
+     *
      * @param node
      */
     public void modifyByNo(HeroNode node) {
         HeroNode temp = head;
-        while (temp.next != null&&temp.next.no!=node.no) {
+        while (temp.next != null && temp.next.no != node.no) {
             temp = temp.next;
         }
-        if (temp.next != null){
-            temp.next.nickName=node.nickName;
-            temp.next.name=node.name;
-        }else {
+        if (temp.next != null) {
+            temp.next.nickName = node.nickName;
+            temp.next.name = node.name;
+        } else {
             System.out.println("can not find it!");
         }
     }
 
-
-
     /**
      * 显示链表
      */
-    public void showLinkedList() {
+    public void showLinkedList(HeroNode head) {
         if (head.next == null) {
             System.out.println("Empty");
         } else {
@@ -122,6 +132,72 @@ class SingleLinkedList {
             }
         }
     }
+
+    /**
+     * 链表面试题1：返回有效节点个数
+     *
+     * @return
+     */
+    public int getNumberOfNode() {
+        HeroNode temp = head;
+        int count = 0;
+        while (temp.next != null) {
+            count++;
+            temp = temp.next;
+        }
+        return count;
+    }
+
+    /**
+     * 链表面试题2（sina面试题）：查找单链表中的倒数第K个节点
+     *
+     * 思路：1、获取链表总长度 len
+     *      2、len - n + 1 = 正向遍历的值
+     *      3、在长度内正常 长度外 null
+     * @param n
+     * @return
+     */
+    public HeroNode getLastKNode(int n) {
+
+        int numberOfNode = getNumberOfNode();
+        int differNumber = numberOfNode - n + 1;
+        int count = 0;
+        if (numberOfNode != 0 && differNumber > 0) {
+            HeroNode temp = head;
+            while (temp.next != null) {
+                count++;
+                temp = temp.next;
+                if (differNumber == count) {
+                    HeroNode k = new HeroNode(temp.no, temp.name, temp.nickName);
+                    return k;
+                }
+            }
+        }
+        return null;
+
+    }
+
+
+    /**
+     * 链表面试题3（tencent面试题）：反转链表
+     */
+    public HeroNode reverseLinkedList(HeroNode node){
+        HeroNode newHead = new HeroNode(0,"","");
+        HeroNode temp = node;
+        while (temp!=null){
+            temp=temp.next;
+            node.next=null;
+            node.next=newHead.next;
+            newHead.next=node;
+
+            node=temp;
+        }
+
+        return newHead;
+    }
+
+
+
 }
 
 

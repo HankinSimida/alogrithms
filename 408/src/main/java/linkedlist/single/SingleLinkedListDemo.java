@@ -4,7 +4,7 @@ import java.util.Stack;
 
 /**
  * 单链表
- *
+ *  查找方向单一 无法自我删除（需要辅助节点）
  * @author hankin
  * @date 2020/8/4 17:55
  */

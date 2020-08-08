@@ -36,10 +36,11 @@ public class SingleLinkedListDemo {
 //        singleLinkedList.showLinkedList(hero1);
         System.out.println(singleLinkedList.getNumberOfNode());
 //        System.out.println(singleLinkedList.getLastKNode(0));
-        HeroNode heroNode = singleLinkedList.reverseLinkedList(hero1);
-        singleLinkedList.showLinkedList(heroNode);
+//        HeroNode heroNode = singleLinkedList.reverseLinkedList(hero1);
 
-
+//        singleLinkedList.showLinkedList(heroNode);
+        HeroNode heroNode2 = singleLinkedList.reverseLinkedList2(hero1);
+        singleLinkedList.showLinkedList(heroNode2);
     }
 }
 
@@ -186,7 +187,6 @@ class SingleLinkedList {
         HeroNode temp = node;
         while (temp!=null){
             temp=temp.next;
-            node.next=null;
             node.next=newHead.next;
             newHead.next=node;
 
@@ -196,6 +196,30 @@ class SingleLinkedList {
         return newHead;
     }
 
+    /**
+     * 链表面试题3（tencent面试题）：反转链表 递归
+     * 其本质就是 压栈的过程，分离出尾结点
+     *
+     * @param node
+     * @return
+     */
+    public HeroNode reverseLinkedList2(HeroNode node){
+        HeroNode newHead = new HeroNode(0,"","");
+        newHead.next= reverse(node);
+        return newHead;
+    }
+
+    private HeroNode reverse(HeroNode node) {
+        if (node==null||node.next==null){
+            return node;
+        }
+        HeroNode temp = node.next;
+        HeroNode singleNode = reverse(temp);
+        temp.next=node;
+        node.next=null;
+        return singleNode;
+
+    }
 
 
 }

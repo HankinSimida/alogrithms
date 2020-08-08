@@ -1,5 +1,7 @@
 package linkedlist.single;
 
+import java.util.Stack;
+
 /**
  * 单链表
  *
@@ -39,8 +41,11 @@ public class SingleLinkedListDemo {
 //        HeroNode heroNode = singleLinkedList.reverseLinkedList(hero1);
 
 //        singleLinkedList.showLinkedList(heroNode);
-        HeroNode heroNode2 = singleLinkedList.reverseLinkedList2(hero1);
-        singleLinkedList.showLinkedList(heroNode2);
+//        HeroNode heroNode2 = singleLinkedList.reverseLinkedList2(hero1);
+//        singleLinkedList.showLinkedList(heroNode2);
+
+        singleLinkedList.printNode(hero1);
+
     }
 }
 
@@ -219,6 +224,26 @@ class SingleLinkedList {
         node.next=null;
         return singleNode;
 
+    }
+
+    /**
+     * 百度面试题：从尾遍历链表
+     * 思路：借用栈从头开始压栈 然后 依次出栈
+     * @param node
+     */
+    public void printNode(HeroNode node){
+        if (node.next==null){
+            return;
+        }
+        Stack<HeroNode> stack =new Stack<>();
+        while (node!=null){
+            stack.push(node);
+//            stack.push(new HeroNode(node.no,node.name,node.nickName));
+            node=node.next;
+        }
+        while (stack.size()>0){
+            System.out.println(stack.pop());
+        }
     }
 
 

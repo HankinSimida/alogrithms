@@ -1,10 +1,7 @@
 package stack.simple;
 
 import java.util.Arrays;
-import java.util.Iterator;
 import java.util.Stack;
-
-import static java.lang.Character.isDigit;
 
 /**
  * @author hankin
